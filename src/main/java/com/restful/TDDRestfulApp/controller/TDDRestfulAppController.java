@@ -16,7 +16,6 @@ public class TDDRestfulAppController {
 
 
     }
-
     @RequestMapping("/")
     public void listClients(){
 
