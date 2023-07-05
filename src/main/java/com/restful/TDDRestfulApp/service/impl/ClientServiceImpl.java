@@ -5,11 +5,14 @@ import com.restful.TDDRestfulApp.dto.response.ClientResponse;
 import com.restful.TDDRestfulApp.repository.ClientRepository;
 import com.restful.TDDRestfulApp.service.ClientService;
 import com.restful.TDDRestfulApp.utils.AppUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.net.http.HttpResponse;
 
 @Service
+@Slf4j
 public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository repository;
@@ -20,19 +23,24 @@ public class ClientServiceImpl implements ClientService {
 
 
     @Override
-    public ClientResponse processAddClientRequest(ClientRequest request) {
+    public ResponseEntity<ClientResponse> processAddClientRequest(ClientRequest request) {
 
-        ClientResponse clientResponse;
-
+       // log.info("processing -> client creation request");
         boolean isValidID = AppUtils.validSouthAfricanIDNumber(request.getIdNumber());
+
+       // var valuation = isValidID? "valid" : "invalid";
+
+        //log.info(valuation);
 
         if(!isValidID){
 
 
         }
 
+        ClientResponse response = new ClientResponse(200,"Client added successfully");
 
-        return null;
+
+        return (ResponseEntity<ClientResponse>) ResponseEntity.badRequest();
     }
 
     @Override

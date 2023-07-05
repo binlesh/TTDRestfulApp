@@ -1,11 +1,14 @@
 package com.restful.TDDRestfulApp.utils;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.function.Predicate;
 
+@Slf4j
 public class AppUtils {
 
     public static boolean validSouthAfricanIDNumber(String idNumberToValidate){
-        System.out.println("Validating ID "+ idNumberToValidate);
+       //log.info("Validating ID "+ idNumberToValidate);
 
         Predicate<String> idLength = s-> s.length() ==13;
         Predicate<String> isNumberValidator = s -> s.chars().allMatch(Character::isDigit);

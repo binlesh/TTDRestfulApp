@@ -1,6 +1,14 @@
 package com.restful.TDDRestfulApp.dto.response;
 
+import lombok.Builder;
+
+@Builder
 public class ClientResponse {
+
+    public ClientResponse(int resultCode, String message) {
+        this.resultCode = resultCode;
+        this.message = message;
+    }
 
     private int resultCode;
     private String message;

@@ -28,9 +28,10 @@ public class TDDRestfulAppController {
 
     @PostMapping(value="/", consumes = APPLICATION_JSON_VALUE, produces =APPLICATION_JSON_VALUE)
     public ResponseEntity<ClientResponse> createClient(@Validated @RequestBody ClientRequest clientRequest){
-        log.info("start - Client creation request");
+     //   log.info("start - Client creation request");
+        return  clientService.processAddClientRequest(clientRequest);
 
-        return  ResponseEntity.ok(clientService.processAddClientRequest(clientRequest));
+       // ResponseEntity.
     }
     @RequestMapping("/")
     public void listClients(){
