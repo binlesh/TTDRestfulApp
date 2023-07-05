@@ -24,6 +24,7 @@ public class TDDRestfulAppController {
 
     @PostMapping("/")
     public void createClient(){
+        System.out.println("client creation");
 
 
     }
@@ -39,11 +40,6 @@ public class TDDRestfulAppController {
 
     }
 
-    @PostMapping("/")
-    public void updateClient(){
-
-
-    }
 
     @DeleteMapping
     public void deleteClient(){

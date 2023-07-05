@@ -4,7 +4,12 @@ import com.restful.TDDRestfulApp.dto.request.ClientRequest;
 import com.restful.TDDRestfulApp.dto.response.ClientResponse;
 import com.restful.TDDRestfulApp.repository.ClientRepository;
 import com.restful.TDDRestfulApp.service.ClientService;
+import com.restful.TDDRestfulApp.utils.AppUtils;
+import org.springframework.stereotype.Service;
 
+import java.net.http.HttpResponse;
+
+@Service
 public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository repository;
@@ -16,6 +21,15 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientResponse processAddClientRequest(ClientRequest request) {
+
+        ClientResponse clientResponse;
+
+        boolean isValidID = AppUtils.validSouthAfricanIDNumber(request.getIdNumber());
+
+        if(!isValidID){
+
+
+        }
 
 
         return null;
@@ -35,4 +49,5 @@ public class ClientServiceImpl implements ClientService {
     public ClientResponse processDeleteClientRequest() {
         return null;
     }
+
 }
