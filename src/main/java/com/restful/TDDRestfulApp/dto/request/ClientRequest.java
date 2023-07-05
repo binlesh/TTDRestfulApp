@@ -9,7 +9,6 @@ public class ClientRequest {
     @NonNull
     private String lastName;
     private String mobileNumber;
-
     @NonNull
     private String idNumber;
     private String physicalAddress;
