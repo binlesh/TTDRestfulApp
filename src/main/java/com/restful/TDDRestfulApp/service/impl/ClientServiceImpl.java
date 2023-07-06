@@ -27,7 +27,6 @@ public class ClientServiceImpl implements ClientService {
         this.clientRepository = clientRepository;
     }
 
-
     @Override
     public ResponseEntity<ClientResponse> processCreateClientRequest(ClientRequest clientRequest) {
 
@@ -50,11 +49,17 @@ public class ClientServiceImpl implements ClientService {
                             new ClientResponse(409, "Mobile Number already exist"));
         }
 
+        clientRepository.createClient(new Client(
+                clientRequest.getFirstName(),
+                clientRequest.getLastName(),
+                clientRequest.getMobileNumber(),
+                clientRequest.getIdNumber(),
+                clientRequest.getPhysicalAddress()
+        ));
 
-        ClientResponse response = new ClientResponse(200,"Client added successfully");
-
-
-        return (ResponseEntity<ClientResponse>) ResponseEntity.badRequest();
+        ClientResponse response =
+                new ClientResponse(200,"Client added successfully");
+        return ResponseEntity.ok(response);
     }
 
     @Override
