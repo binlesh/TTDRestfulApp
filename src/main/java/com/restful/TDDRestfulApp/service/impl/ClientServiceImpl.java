@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -35,14 +36,14 @@ public class ClientServiceImpl implements ClientService {
         var idNumber = clientRequest.getIdNumber();
         var mobileNumber = clientRequest.getMobileNumber();
 
-        if(AppUtils.validSouthAfricanIDNumber(idNumber)){
+        if (AppUtils.validSouthAfricanIDNumber(idNumber)) {
             return ResponseEntity.badRequest().body(new ClientResponse(HttpStatus.BAD_REQUEST.value(), "Invalid South African ID number"));
         }
 
         if (clientRepository.isIdNumberExist(idNumber)) {
             return ResponseEntity.badRequest()
                     .body(
-                            new ClientResponse(409,"ID Number already exists"));
+                            new ClientResponse(409, "ID Number already exists"));
         }
 
         if (clientRepository.isMobileNumberExist(mobileNumber)) {
@@ -60,7 +61,7 @@ public class ClientServiceImpl implements ClientService {
         ));
 
         ClientResponse response =
-                new ClientResponse(200,"Client added successfully");
+                new ClientResponse(200, "Client added successfully");
         return ResponseEntity.ok(response);
     }
 
@@ -69,8 +70,8 @@ public class ClientServiceImpl implements ClientService {
         List<ClientDTO> clientDTOS = ClientToDTOMapper
                 .mapClientModelToDTOs(clientRepository.listClient());
 
-        if(clientDTOS.isEmpty()){
-            return  ResponseEntity.badRequest().body(
+        if (clientDTOS.isEmpty()) {
+            return ResponseEntity.badRequest().body(
                     new ClientResponse(HttpStatus.NO_CONTENT.value(),
                             "There are no clients to display")
             );
@@ -95,15 +96,39 @@ public class ClientServiceImpl implements ClientService {
         System.out.println("processing client search request");
 
 
-
-
-
         return null;
     }
 
     @Override
     public ResponseEntity<ClientResponse> processDeleteClientRequest(String idNumber) {
-        return null;
+        Optional<Client> optionalClient = clientRepository.getClientByIDNumber(idNumber);
+
+        if (!optionalClient.isPresent()) {
+            ClientResponse response = new ClientResponse(
+                    HttpStatus.NOT_FOUND.value(),
+                    "Client not found. Deletion not performed");
+            return ResponseEntity.ok(response);
+
+        }
+        var isClientDeleted = clientRepository.deleteClient(optionalClient.get());
+
+        if (isClientDeleted) {
+            ClientResponse response = new ClientResponse(
+                    HttpStatus.NOT_FOUND.value(),
+                    "Client has with ID: " + idNumber + " deleted successfully");
+            return ResponseEntity.ok(response);
+
+        }else{
+
+            ClientResponse response = new ClientResponse(
+                    HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                    "Unknown error while deleting the client");
+            return ResponseEntity.ok(response);
+        }
+
+
+
+
     }
 
 }
