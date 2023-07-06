@@ -4,6 +4,7 @@ import com.restful.TDDRestfulApp.dto.ClientDTO;
 import com.restful.TDDRestfulApp.dto.request.ClientRequest;
 import com.restful.TDDRestfulApp.dto.response.AllClientResponse;
 import com.restful.TDDRestfulApp.dto.response.ClientResponse;
+import com.restful.TDDRestfulApp.mapper.ClientToDTOMapper;
 import com.restful.TDDRestfulApp.model.Client;
 import com.restful.TDDRestfulApp.repository.ClientRepository;
 import com.restful.TDDRestfulApp.service.ClientService;
@@ -64,9 +65,10 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ResponseEntity<ClientResponse> listAllClients() {
-        List<Client> clientList = clientRepository.listClient();
+        List<ClientDTO> clientDTOS = ClientToDTOMapper
+                .mapClientModelToDTOs(clientRepository.listClient());
 
-        if(clientList.isEmpty()){
+        if(clientDTOS.isEmpty()){
             return  ResponseEntity.badRequest().body(
                     new ClientResponse(HttpStatus.NO_CONTENT.value(),
                             "There are no clients to display")
@@ -76,7 +78,7 @@ public class ClientServiceImpl implements ClientService {
         ClientResponse response =
                 new AllClientResponse(HttpStatus.OK.value(),
                         "Retrieved all Clients successfully",
-                        new ArrayList<ClientDTO>());
+                        clientDTOS);
 
         return ResponseEntity.ok(response);
     }
