@@ -18,4 +18,9 @@ public class AllClientResponse extends ClientResponse{
     public void setClientList(List<ClientDTO> clientList) {
         this.clientList = clientList;
     }
+
+    public AllClientResponse(int resultCode, String message, List<ClientDTO> clientList) {
+        super(resultCode, message);
+        this.clientList = clientList;
+    }
 }

@@ -1,5 +1,6 @@
 package com.restful.TDDRestfulApp.service.impl;
 
+import com.restful.TDDRestfulApp.dto.ClientDTO;
 import com.restful.TDDRestfulApp.dto.request.ClientRequest;
 import com.restful.TDDRestfulApp.dto.response.AllClientResponse;
 import com.restful.TDDRestfulApp.dto.response.ClientResponse;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -63,11 +65,12 @@ public class ClientServiceImpl implements ClientService {
             return (ResponseEntity<ClientResponse>)ResponseEntity.noContent();
         }
 
-
         ClientResponse response =
-                new AllClientResponse(HttpStatus.OK.value(), "Retrieved all Clients successfully");
+                new AllClientResponse(HttpStatus.OK.value(),
+                        "Retrieved all Clients successfully",
+                        new ArrayList<ClientDTO>());
 
-        return response;
+        return ResponseEntity.ok(response);
     }
 
 
