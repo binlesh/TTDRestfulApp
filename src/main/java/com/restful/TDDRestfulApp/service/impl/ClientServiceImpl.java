@@ -62,7 +62,10 @@ public class ClientServiceImpl implements ClientService {
         List<Client> clientList = clientRepository.listClient();
 
         if(clientList.isEmpty()){
-            return (ResponseEntity<ClientResponse>)ResponseEntity.noContent();
+            return  ResponseEntity.badRequest().body(
+                    new ClientResponse(HttpStatus.NO_CONTENT.value(),
+                            "There are no clients to display")
+            );
         }
 
         ClientResponse response =

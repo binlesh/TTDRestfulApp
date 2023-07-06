@@ -2,13 +2,15 @@ package com.restful.TDDRestfulApp.repository.impl;
 
 import com.restful.TDDRestfulApp.model.Client;
 import com.restful.TDDRestfulApp.repository.ClientRepository;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class ClientRepositoryImpl implements ClientRepository {
 
-    private List<Client> clients;
-
+    private List<Client> clients = new ArrayList<>();
 
     public boolean createClient(Client client){
         return  clients.add(client);
