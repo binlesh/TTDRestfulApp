@@ -2,6 +2,7 @@ package com.restful.TDDRestfulApp.controller;
 
 
 import com.restful.TDDRestfulApp.dto.request.ClientRequest;
+import com.restful.TDDRestfulApp.dto.request.ClientSearchRequest;
 import com.restful.TDDRestfulApp.dto.response.ClientResponse;
 import com.restful.TDDRestfulApp.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,9 +27,10 @@ public class TDDRestfulAppController {
         this.clientService = clientService;
     }
 
-    @PostMapping(value="/", consumes = APPLICATION_JSON_VALUE, produces =APPLICATION_JSON_VALUE)
+    @PostMapping(value="/",
+            consumes = APPLICATION_JSON_VALUE,
+            produces =APPLICATION_JSON_VALUE)
     public ResponseEntity<ClientResponse> createClient(@Validated @RequestBody ClientRequest clientRequest){
-
         try {
              return clientService.processCreateClientRequest(clientRequest);
         }catch(Exception e){
@@ -55,10 +57,10 @@ public class TDDRestfulAppController {
 
     }
 
-    @RequestMapping("/search")
-    public void searchClient(){
-
-
-
+    @RequestMapping(value="/search",
+            consumes = APPLICATION_JSON_VALUE,
+            produces =APPLICATION_JSON_VALUE )
+    public ResponseEntity<ClientResponse>  searchClient(@RequestBody ClientSearchRequest searchRequest){
+        return clientService.processSearchClientRequest(searchRequest);
     }
 }
