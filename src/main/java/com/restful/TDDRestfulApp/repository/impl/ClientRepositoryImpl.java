@@ -1,11 +1,13 @@
 package com.restful.TDDRestfulApp.repository.impl;
 
+import com.restful.TDDRestfulApp.dto.request.ClientSearchRequest;
 import com.restful.TDDRestfulApp.model.Client;
 import com.restful.TDDRestfulApp.repository.ClientRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientRepositoryImpl implements ClientRepository {
@@ -20,8 +22,18 @@ public class ClientRepositoryImpl implements ClientRepository {
         return clients;
     }
 
-    public boolean deleteClient(Client client){
-        return clients.remove(client);
+    @Override
+    public List<Client> getMatchingClients(ClientSearchRequest searchRequest) {
+        return clients.stream()
+                .filter(client -> ( searchRequest.getFirstName().equalsIgnoreCase(client.getFirstName())))
+                .filter(client -> ( searchRequest.getLastName().equalsIgnoreCase(client.getLastName())))
+                .filter(client -> ( searchRequest.getIdNumber().equals(client.getIdNumber())))
+                .filter(client -> ( searchRequest.getMobileNumber().equals(client.getMobileNumber())))
+                .toList();
+    }
+
+    public boolean deleteClient(String idNumber){
+        return clients.remove(getClientByIDNumber(idNumber));
     }
 
     public boolean isIdNumberExist(String idNumber) {
@@ -43,5 +55,12 @@ public class ClientRepositoryImpl implements ClientRepository {
                 .count();
 
         return mobileNumberFound>1;
+    }
+
+    @Override
+    public Optional<Client> getClientByIDNumber(String idNumber) {
+        return clients.stream()
+                .filter(client -> client.getIdNumber().equals(idNumber))
+                .findFirst();
     }
 }

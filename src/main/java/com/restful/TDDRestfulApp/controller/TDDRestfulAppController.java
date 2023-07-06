@@ -57,7 +57,7 @@ public class TDDRestfulAppController {
 
     }
 
-    @RequestMapping(value="/search",
+    @GetMapping(value="/search",
             consumes = APPLICATION_JSON_VALUE,
             produces =APPLICATION_JSON_VALUE )
     public ResponseEntity<ClientResponse>  searchClient(@RequestBody ClientSearchRequest searchRequest){

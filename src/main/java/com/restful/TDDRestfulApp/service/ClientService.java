@@ -17,7 +17,7 @@ public interface ClientService {
 
     ResponseEntity<ClientResponse> processSearchClientRequest(ClientSearchRequest searchRequest);
 
-    ClientResponse processDeleteClientRequest();
+    ResponseEntity<ClientResponse> processDeleteClientRequest(String idNumber);
 
 
 

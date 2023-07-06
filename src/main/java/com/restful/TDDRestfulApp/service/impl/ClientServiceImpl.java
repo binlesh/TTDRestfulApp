@@ -2,6 +2,7 @@ package com.restful.TDDRestfulApp.service.impl;
 
 import com.restful.TDDRestfulApp.dto.ClientDTO;
 import com.restful.TDDRestfulApp.dto.request.ClientRequest;
+import com.restful.TDDRestfulApp.dto.request.ClientSearchRequest;
 import com.restful.TDDRestfulApp.dto.response.AllClientResponse;
 import com.restful.TDDRestfulApp.dto.response.ClientResponse;
 import com.restful.TDDRestfulApp.mapper.ClientToDTOMapper;
@@ -90,12 +91,18 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientResponse processSearchClientRequest() {
+    public ResponseEntity<ClientResponse> processSearchClientRequest(ClientSearchRequest searchRequest) {
+        System.out.println("processing client search request");
+
+
+
+
+
         return null;
     }
 
     @Override
-    public ClientResponse processDeleteClientRequest() {
+    public ResponseEntity<ClientResponse> processDeleteClientRequest(String idNumber) {
         return null;
     }
 
