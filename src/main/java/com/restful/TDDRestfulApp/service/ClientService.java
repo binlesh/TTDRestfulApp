@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ClientService {
 
-    ResponseEntity<ClientResponse> processAddClientRequest(ClientRequest request);
+    ResponseEntity<ClientResponse> processCreateClientRequest(ClientRequest request);
+
+    ResponseEntity<ClientResponse> listAllClients();
 
     ClientResponse processUpdateClientRequest();
 

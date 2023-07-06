@@ -6,20 +6,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ClientRepository {
+public interface ClientRepository {
+    public boolean createClient(Client client);
+    public List<Client> listClient();
+    public boolean deleteClient(Client client);
+    public boolean isIdNumberExist(String idNumber);
+    public boolean isMobileNumberExist(String mobileNumber);
 
-    private List<Client> clients;
-
-
-    public boolean addClient(Client client){
-        return  clients.add(client);
-    }
-
-    public List<Client> listClient(){
-        return clients;
-    }
-
-    public boolean deleteClient(Client client){
-        return clients.remove(client);
-    }
 }
