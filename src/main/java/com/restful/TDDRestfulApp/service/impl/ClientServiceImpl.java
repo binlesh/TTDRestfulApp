@@ -3,6 +3,7 @@ package com.restful.TDDRestfulApp.service.impl;
 import com.restful.TDDRestfulApp.dto.ClientDTO;
 import com.restful.TDDRestfulApp.dto.request.ClientRequest;
 import com.restful.TDDRestfulApp.dto.request.ClientSearchRequest;
+import com.restful.TDDRestfulApp.dto.request.ClientUpdateRequest;
 import com.restful.TDDRestfulApp.dto.response.AllClientResponse;
 import com.restful.TDDRestfulApp.dto.response.ClientResponse;
 import com.restful.TDDRestfulApp.mapper.ClientToDTOMapper;
@@ -87,7 +88,13 @@ public class ClientServiceImpl implements ClientService {
 
 
     @Override
-    public ClientResponse processUpdateClientRequest() {
+    public ResponseEntity<ClientResponse> processUpdateClientRequest(
+            String idNumber,
+            ClientUpdateRequest clientUpdateRequest) {
+
+        System.out.println("updating the client with ID Number: "+ idNumber);
+
+
         return null;
     }
 
@@ -125,10 +132,5 @@ public class ClientServiceImpl implements ClientService {
                     "Unknown error while deleting the client");
             return ResponseEntity.ok(response);
         }
-
-
-
-
     }
-
 }

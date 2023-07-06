@@ -32,6 +32,11 @@ public class ClientRepositoryImpl implements ClientRepository {
                 .toList();
     }
 
+    @Override
+    public boolean deleteClient(Client client) {
+        return false;
+    }
+
     public boolean deleteClient(String idNumber){
         return clients.remove(getClientByIDNumber(idNumber));
     }

@@ -3,6 +3,7 @@ package com.restful.TDDRestfulApp.controller;
 
 import com.restful.TDDRestfulApp.dto.request.ClientRequest;
 import com.restful.TDDRestfulApp.dto.request.ClientSearchRequest;
+import com.restful.TDDRestfulApp.dto.request.ClientUpdateRequest;
 import com.restful.TDDRestfulApp.dto.response.ClientResponse;
 import com.restful.TDDRestfulApp.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,22 +40,24 @@ public class TDDRestfulAppController {
                             " Please contact the Administrator"));
         }
     }
+    @PutMapping(value="/{idNumber}",
+            consumes = APPLICATION_JSON_VALUE,
+            produces =APPLICATION_JSON_VALUE)
+    public ResponseEntity<ClientResponse> updateClient(
+            @PathVariable("idNumber") String idNumber,
+            @RequestBody ClientUpdateRequest clientUpdateRequest){
+
+       return clientService.processUpdateClientRequest(idNumber, clientUpdateRequest);
+
+    }
     @RequestMapping("/")
     public ResponseEntity<ClientResponse> listClients(){
         return clientService.listAllClients();
     }
 
-    @RequestMapping("/{id}")
-    public void getClient(){
-
-
-    }
-
-
-    @DeleteMapping
-    public void deleteClient(){
-
-
+    @DeleteMapping(value = "/{idNumber}")
+    public ResponseEntity<ClientResponse> deleteClient(@PathVariable("idNumber") String idNumber){
+        return clientService.processDeleteClientRequest(idNumber);
     }
 
     @GetMapping(value="/search",
