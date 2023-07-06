@@ -1,6 +1,7 @@
 package com.restful.TDDRestfulApp.service.impl;
 
 import com.restful.TDDRestfulApp.dto.request.ClientRequest;
+import com.restful.TDDRestfulApp.dto.response.AllClientResponse;
 import com.restful.TDDRestfulApp.dto.response.ClientResponse;
 import com.restful.TDDRestfulApp.model.Client;
 import com.restful.TDDRestfulApp.repository.ClientRepository;
@@ -58,8 +59,15 @@ public class ClientServiceImpl implements ClientService {
     public ResponseEntity<ClientResponse> listAllClients() {
         List<Client> clientList = clientRepository.listClient();
 
+        if(clientList.isEmpty()){
+            return (ResponseEntity<ClientResponse>)ResponseEntity.noContent();
+        }
 
-        return null;
+
+        ClientResponse response =
+                new AllClientResponse(HttpStatus.OK.value(), "Retrieved all Clients successfully");
+
+        return response;
     }
 
 
